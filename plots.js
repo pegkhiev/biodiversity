@@ -19,7 +19,7 @@ function init(){
         Object.keys(result).forEach((r) =>{
             resultKeys.push(r)
         })
-   
+        
 
         PANEL.html("");
         PANEL.append("h6").text(resultKeys[0] + ": " + result.id)
@@ -30,8 +30,7 @@ function init(){
         PANEL.append("h6").text(resultKeys[5] + ": "+ result.bbtype)
         PANEL.append("h6").text(resultKeys[6] + ": " + result.wfreq)
     
-        console.log(result)
-    
+        console.log(result);
 
         var otusamples = data.samples;
         var otusampleArray = otusamples.filter(item => item.id == 940);
@@ -66,6 +65,26 @@ function init(){
                 size: otusampleArray[0].sample_values
             }
         };
+        // var metadata  = data.metadata;
+        var wfreqArray = metadata.filter(item => item.id == 940);
+        var wfreqVal = wfreqArray[0].wfreq
+        var data = [
+            {domain: {x:[0,1], y:[0,1]},
+            value: wfreqVal,
+            title: "Belly Button Washing Frequency",
+            type: "indicator",
+            mode: "gauge+number",
+            gauge: {
+                colorscale: "Greens",
+                axis: {range: [null, 9]},
+                steps: [{range: [0,1], color: "rgb(233,247,200)"} ,{range: [1,2],color: "rgb(221,240,177)"},
+                {range: [2,3], color: 'rgb(205,227,154)'},{range: [3,4], color: 'rgb(186, 209, 132)'},{range: [4,5], color: 'rgb(164, 189, 106'},
+                {range: [5,6], color: 'rgb(135,161,76)'},{range: [6,7], color: 'rgb(124,153,57)'},{range: [7,8], color: 'rgb(109,138,43)'},
+                {range: [8,9], color: 'rgb(99, 128, 33)'}]     
+            }
+            
+            }]
+        Plotly.newPlot('gauge', data);
 
         var layout_bubble = {
             xaxis: {title: "OTU ID"},
@@ -141,9 +160,11 @@ function buildCharts(sample) {
             y: otusampleArray[0].sample_values,
             text: otuLabel,
             mode: "markers",
+            colorscale: "Earth",
             marker: {
                 color: otusampleArray[0].otu_ids,
-                size: otusampleArray[0].sample_values
+                size: otusampleArray[0].sample_values,
+                colorscale: "Earth"
             }
         };
 
@@ -166,12 +187,20 @@ function buildGauge(sample) {
         var data = [
             {domain: {x:[0,1], y:[0,1]},
             value: wfreqVal,
-            title: "Belly Button Washing Frequency \n Scrubs per week",
+            title: "Belly Button Washing Frequency",
             type: "indicator",
             mode: "gauge+number",
+            gauge: {
+                colorscale: "Greens",
+                axis: {range: [null, 9]},
+                steps: [{range: [0,1], color: "rgb(233,247,200)"} ,{range: [1,2],color: "rgb(221,240,177)"},
+                {range: [2,3], color: 'rgb(205,227,154)'},{range: [3,4], color: 'rgb(186, 209, 132)'},{range: [4,5], color: 'rgb(164, 189, 106'},
+                {range: [5,6], color: 'rgb(135,161,76)'},{range: [6,7], color: 'rgb(124,153,57)'},{range: [7,8], color: 'rgb(109,138,43)'},{range: [8,9], color: 'rgb(99, 128, 33)'}]
+               
+            }
             
             }]
-        Plotly.newPlot('#gauge', data)
+        Plotly.newPlot('gauge', data)
         console.log(wfreqVal)
         
     })       
