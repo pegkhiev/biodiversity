@@ -83,6 +83,7 @@ init();
 function optionChanged(newSample) {
     buildMetadata(newSample);
     buildCharts(newSample);
+    buildGauge(newSample);
 }
 
 function buildMetadata(sample) {
@@ -155,3 +156,22 @@ function buildCharts(sample) {
     })
 
 };
+
+function buildGauge(sample) {
+    d3.json('samples.json').then((data) =>{
+        var metadata  = data.metadata;
+        var wfreqArray = metadata.filter(item => item.id === sample);
+        var wfreqVal = wfreqArray[0].wfreq;
+
+        var data = [
+            {domain: {x:[0,1], y:[0,1]},
+            value: wfreqVal,
+            title: "Belly Button Washing Frequency \n Scrubs per week",
+            type: "indicator",
+            mode: "gauge+number",
+            
+            }]
+        Plotly.newPlot('#gauge', data)
+        
+    })       
+}
