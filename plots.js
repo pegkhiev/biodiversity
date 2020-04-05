@@ -160,7 +160,7 @@ function buildCharts(sample) {
 function buildGauge(sample) {
     d3.json('samples.json').then((data) =>{
         var metadata  = data.metadata;
-        var wfreqArray = metadata.filter(item => item.id === sample);
+        var wfreqArray = metadata.filter(item => item.id == sample);
         var wfreqVal = wfreqArray[0].wfreq;
 
         var data = [
@@ -172,6 +172,7 @@ function buildGauge(sample) {
             
             }]
         Plotly.newPlot('#gauge', data)
+        console.log(wfreqVal)
         
     })       
 }
