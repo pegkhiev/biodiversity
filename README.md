@@ -9,5 +9,5 @@ The finished dashboard is also published through Github pages.
 
 The below screenshot shows the launch page. 
 
-
+<img alt = "dashboard launch page" src = "https://github.com/pegkhiev/biodiversity/blob/master/dashboard.png">
 
